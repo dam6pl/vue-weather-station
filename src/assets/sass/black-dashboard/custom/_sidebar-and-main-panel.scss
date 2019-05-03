@@ -519,6 +519,10 @@
       -webkit-overflow-scrolling: touch;
     }
 
+  nav:not(.nav-404) {
+    display: none !important;
+  }
+
 
     .sidebar-mini{
         .visible-on-sidebar-regular{
@@ -683,6 +687,7 @@
     width: 100%;
       .content {
       padding-left: 30px;
+        margin-top: 60px;
     }
   }
 

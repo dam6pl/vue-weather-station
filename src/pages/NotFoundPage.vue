@@ -1,7 +1,7 @@
 <template>
   <div class="contact-us full-screen">
-    <nav class="navbar navbar-ct-default" role="navigation-demo">
-      <div class="container">
+    <nav class="nav-404 navbar navbar-ct-default" role="navigation-demo">
+      <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
