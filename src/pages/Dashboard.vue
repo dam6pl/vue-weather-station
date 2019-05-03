@@ -93,34 +93,6 @@
                 </card>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <card type="tasks">
-                    <template slot="header">
-                        <h6 class="title d-inline">{{'dashboard.tasks'}}}</h6>
-                        <p class="card-category d-inline">{{'dashboard.today'}}</p>
-                        <base-dropdown menu-on-right=""
-                                       tag="div"
-                                       title-classes="btn btn-link btn-icon"
-                                       aria-label="Settings menu">
-                            <i slot="title" class="tim-icons icon-settings-gear-63"></i>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.action'}}</a>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.anotherAction'}}</a>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.somethingElse'}}</a>
-                        </base-dropdown>
-                    </template>
-                    <div class="table-full-width table-responsive">
-                    </div>
-                </card>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <card class="card">
-                    <h4 slot="header" class="card-title">{{'dashboard.simpleTable'}}</h4>
-                    <div class="table-responsive">
-                    </div>
-                </card>
-            </div>
-        </div>
     </div>
 </template>
 <script>
