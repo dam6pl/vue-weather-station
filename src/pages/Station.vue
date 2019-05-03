@@ -11,8 +11,7 @@
                                 <h2 class="card-title">{{'dashboard.performance'}}</h2>
                             </div>
                             <div class="col-sm-6">
-                                <div class="btn-group btn-group-toggle"
-                                     :class="isRTL ? 'float-left' : 'float-right'"
+                                <div class="btn-group btn-group-toggle float-right"
                                      data-toggle="buttons">
                                     <label v-for="(option, index) in bigLineChartCategories"
                                            :key="option"
@@ -31,12 +30,12 @@
                     </template>
                     <div class="chart-area">
                         <line-chart style="height: 100%"
-                                    ref="bigChart"
-                                    chart-id="big-line-chart"
-                                    :chart-data="bigLineChart.chartData"
-                                    :gradient-colors="bigLineChart.gradientColors"
-                                    :gradient-stops="bigLineChart.gradientStops"
-                                    :extra-options="bigLineChart.extraOptions">
+                                       ref="bigChart"
+                                       chart-id="big-line-chart"
+                                       :chart-data="bigLineChart.chartData"
+                                       :gradient-colors="bigLineChart.gradientColors"
+                                       :gradient-stops="bigLineChart.gradientStops"
+                                       :extra-options="bigLineChart.extraOptions">
                         </line-chart>
                     </div>
                 </card>
@@ -93,34 +92,6 @@
                 </card>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <card type="tasks">
-                    <template slot="header">
-                        <h6 class="title d-inline">{{'dashboard.tasks'}}}</h6>
-                        <p class="card-category d-inline">{{'dashboard.today'}}</p>
-                        <base-dropdown menu-on-right=""
-                                       tag="div"
-                                       title-classes="btn btn-link btn-icon"
-                                       aria-label="Settings menu">
-                            <i slot="title" class="tim-icons icon-settings-gear-63"></i>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.action'}}</a>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.anotherAction'}}</a>
-                            <a class="dropdown-item" href="#pablo">{{'dashboard.dropdown.somethingElse'}}</a>
-                        </base-dropdown>
-                    </template>
-                    <div class="table-full-width table-responsive">
-                    </div>
-                </card>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <card class="card">
-                    <h4 slot="header" class="card-title">{{'dashboard.simpleTable'}}</h4>
-                    <div class="table-responsive">
-                    </div>
-                </card>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -143,7 +114,7 @@
                         [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130]
                     ],
                     activeIndex: 0,
-                    chartData: {},
+                    chartData: null,
                     extraOptions: chartConfigs.purpleChartOptions,
                     gradientColors: config.colors.primaryGradient,
                     gradientStops: [1, 0.4, 0],
@@ -217,9 +188,6 @@
             }
         },
         computed: {
-            isRTL() {
-                return this.$rtl.isRTL;
-            },
             bigLineChartCategories() {
                 return [
                     "Accounts",
@@ -254,15 +222,7 @@
             }
         },
         mounted() {
-            if (this.enableRTL) {
-                this.$rtl.enableRTL();
-            }
             this.initBigChart(0);
-        },
-        beforeDestroy() {
-            if (this.$rtl.isRTL) {
-                this.$rtl.disableRTL();
-            }
         }
     };
 </script>

@@ -5,6 +5,10 @@ export default {
   extends: Line,
   mixins: [mixins.reactiveProp],
   props: {
+    chartData: {
+      type: Object,
+      default: null
+    },
     extraOptions: Object,
     gradientColors: {
       type: Array,

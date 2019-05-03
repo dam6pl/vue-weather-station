@@ -2,18 +2,15 @@
     <div class="wrapper">
         <side-bar>
             <template slot="links">
-                {{this.stations}}
                 <sidebar-link to="/" :name="'Dashboard'" icon="tim-icons icon-chart-pie-36"/>
-                <sidebar-link to="/station/1" :name="'Stacja Bobowa'" icon="tim-icons icon-cloud-download-93"/>
-                <sidebar-link to="/station/2" :name="'Stacja Nowy Sącz'" icon="tim-icons icon-cloud-download-93"/>
+                <sidebar-link v-for="station in stations" :key="station.id"
+                        :to="`/station/${station.id}`" :name="station.name" icon="tim-icons icon-cloud-download-93"/>
             </template>
         </side-bar>
         <div class="main-panel">
             <top-navbar></top-navbar>
 
-            <dashboard-content @click.native="toggleSidebar">
-
-            </dashboard-content>
+            <dashboard-content @click.native="toggleSidebar"></dashboard-content>
 
             <content-footer></content-footer>
         </div>
@@ -48,12 +45,21 @@
             }
         },
         mounted () {
-            axios
-                .get(process.env.VUE_APP_API_URL + 'v1/stations/')
-                .then(response => (this.stations = response))
-                .catch(function (error) {
-                    console.log(error);
-                })
+            if (!sessionStorage.stations) {
+                axios
+                    .get(process.env.VUE_APP_API_URL + 'v1/stations')
+                    .then(function (response) {
+                        if (response.data.success) {
+                            sessionStorage.stations = JSON.stringify(response.data.data);
+                            this.stations = JSON.parse(sessionStorage.stations);
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
+                this.stations = JSON.parse(sessionStorage.stations);
+            }
         }
     };
 </script>

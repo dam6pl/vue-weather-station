@@ -11,8 +11,7 @@
                                 <h2 class="card-title">{{'dashboard.performance'}}</h2>
                             </div>
                             <div class="col-sm-6">
-                                <div class="btn-group btn-group-toggle"
-                                     :class="isRTL ? 'float-left' : 'float-right'"
+                                <div class="btn-group btn-group-toggle float-right"
                                      data-toggle="buttons">
                                     <label v-for="(option, index) in bigLineChartCategories"
                                            :key="option"
@@ -31,12 +30,12 @@
                     </template>
                     <div class="chart-area">
                         <line-chart style="height: 100%"
-                                    ref="bigChart"
-                                    chart-id="big-line-chart"
-                                    :chart-data="bigLineChart.chartData"
-                                    :gradient-colors="bigLineChart.gradientColors"
-                                    :gradient-stops="bigLineChart.gradientStops"
-                                    :extra-options="bigLineChart.extraOptions">
+                                       ref="bigChart"
+                                       chart-id="big-line-chart"
+                                       :chart-data="bigLineChart.chartData"
+                                       :gradient-colors="bigLineChart.gradientColors"
+                                       :gradient-stops="bigLineChart.gradientStops"
+                                       :extra-options="bigLineChart.extraOptions">
                         </line-chart>
                     </div>
                 </card>
@@ -189,9 +188,6 @@
             }
         },
         computed: {
-            isRTL() {
-                return this.$rtl.isRTL;
-            },
             bigLineChartCategories() {
                 return [
                     "Accounts",
@@ -226,15 +222,7 @@
             }
         },
         mounted() {
-            if (this.enableRTL) {
-                this.$rtl.enableRTL();
-            }
             this.initBigChart(0);
-        },
-        beforeDestroy() {
-            if (this.$rtl.isRTL) {
-                this.$rtl.disableRTL();
-            }
         }
     };
 </script>
