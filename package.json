@@ -18,14 +18,14 @@
     "vue-chartjs": "^3.4.0",
     "vue-router": "^3.0.2",
     "vue-router-prefetch": "^1.4.0",
-    "vue2-transitions": "^0.2.3"
+    "vue2-transitions": "^0.2.3",
+    "express": "^4.16.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-pwa": "^3.4.0",
     "@vue/cli-service": "^3.4.0",
-    "express": "^4.16.4",
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "serve-static": "^1.13.2",
