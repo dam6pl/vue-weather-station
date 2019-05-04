@@ -19,10 +19,10 @@
       }
     },
     mounted() {
-        if (typeof process.env.HEROKU_SLUG_COMMIT !== "undefined"
-          && typeof process.env.HEROKU_RELEASE_VERSION !== "undefined") {
+        if (typeof process.env.VUE_APP_HEROKU_SLUG_COMMIT !== "undefined"
+          && typeof process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined") {
           this.version = true;
-          this.versionText =  ` | ${process.env.HEROKU_SLUG_COMMIT}${process.env.HEROKU_RELEASE_VERSION}`;
+          this.versionText =  ` | ${process.env.VUE_APP_HEROKU_SLUG_COMMIT}${process.env.VUE_APP_HEROKU_RELEASE_VERSION}`;
         }
     }
   };
