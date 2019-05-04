@@ -22,7 +22,7 @@
       <slot>
 
       </slot>
-      <ul class="nav">
+      <ul class="nav" v-bind:class="{ loading: loader }">
         <!--By default vue-router adds an active class to each route link. This way the links are colored when clicked-->
         <slot name="links">
           <sidebar-link v-for="(link,index) in sidebarLinks"
@@ -32,6 +32,7 @@
                         :icon="link.icon">
           </sidebar-link>
         </slot>
+        <li class="lds-ripple" v-if="loader"><div></div><div></div></li>
       </ul>
     </div>
   </div>
@@ -68,6 +69,10 @@
         default: () => []
       },
       autoClose: {
+        type: Boolean,
+        default: true
+      },
+      loader: {
         type: Boolean,
         default: true
       }

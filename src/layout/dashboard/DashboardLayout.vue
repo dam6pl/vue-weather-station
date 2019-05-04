@@ -1,6 +1,6 @@
 <template>
     <div class="wrapper">
-        <side-bar>
+        <side-bar :loader="loader">
             <template slot="links">
                 <sidebar-link to="/" :name="'Dashboard'" icon="tim-icons icon-chart-pie-36"/>
                 <sidebar-link v-for="station in stations" :key="station.id"
@@ -34,7 +34,8 @@
         },
         data: function() {
             return {
-                stations: null
+                stations: null,
+                loader: true
             }
         },
         methods: {
@@ -48,17 +49,20 @@
             if (!sessionStorage.stations) {
                 axios
                     .get(process.env.VUE_APP_API_URL + 'v1/stations')
-                    .then(function (response) {
+                    .then((response) => {
                         if (response.data.success) {
+                            this.stations = response.data.data;
+                            this.loader = !this.loader;
                             sessionStorage.stations = JSON.stringify(response.data.data);
-                            this.stations = JSON.parse(sessionStorage.stations);
                         }
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         console.log(error);
+                        this.$notify({type: 'danger', message: "Błąd strony: " + error.message})
                     });
             } else {
                 this.stations = JSON.parse(sessionStorage.stations);
+                this.loader = !this.loader;
             }
         }
     };

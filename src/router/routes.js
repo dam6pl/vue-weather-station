@@ -3,8 +3,8 @@ import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
 import NotFound from "@/pages/NotFoundPage.vue";
 
 // Admin pages
-const Dashboard = () => import(/* webpackChunkName: "dashboard" */"@/pages/Dashboard.vue");
-const Station = () => import(/* webpackChunkName: "common" */ "@/pages/Station.vue");
+const Dashboard = () => import("@/pages/Dashboard.vue");
+const Station = () => import( "@/pages/Station.vue");
 
 const routes = [
   {
