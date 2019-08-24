@@ -30,7 +30,10 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "serve-static": "^1.13.2",
-    "vue-template-compiler": "^2.6.6"
+    "vue-template-compiler": "^2.6.6",
+    "lodash.template": ">=4.5.0",
+    "mem": ">=4.0.0",
+    "tar": ">=2.2.2"
   },
   "browserslist": [
     "> 1%",

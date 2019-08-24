@@ -1,69 +1,45 @@
 <template>
-  <div class="contact-us full-screen">
-    <nav class="nav-404 navbar navbar-ct-default" role="navigation-demo">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <router-link :to="{path:'/'}" class="navbar-brand">Stacja meteo</router-link>
-        </div>
+  <div class="wrapper">
+    <div class="main-panel">
+      <top-navbar></top-navbar>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navigation-example-2">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <router-link :to="{path:'/'}">Home</router-link>
-            </li>
-          </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-->
-    </nav>
-    <div class="page-404 section content">
-      <div class="">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 offset-md-2 text-center">
-              <h2 class="title text-danger">404 Nie znaleziono</h2>
-              <h2 class="title">Oops! Strona której szukasz wydaje się nie istnieć.</h2>
-            </div>
+      <div class="content" style="height: 1px;">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="text-center">
+            <h1 class="title text-danger">404 Nie znaleziono</h1>
+            <h2 class="title">Oops! Strona której szukasz wydaje się nie istnieć.</h2>
           </div>
         </div>
+        <content-footer></content-footer>
       </div>
     </div>
-    <footer class="footer">
-      <div class="container-fluid">
-        <div class="copyright">
-          © {{year}} utworzone z <i class="tim-icons icon-heart-2"></i> przez
-          <a href="https://dnowak.dev" target="_blank" rel="noopener">Damian Nowak</a>
-          <span v-if="version">{{versionText}}</span>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        year: new Date().getFullYear(),
-        version: false,
-        versionText: ''
-      }
-    },
-    mounted() {
-      if (typeof process.env.VUE_APP_HEROKU_SLUG_COMMIT !== "undefined"
-              && typeof process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined") {
-        this.version = true;
-        this.versionText =  ` | ${process.env.VUE_APP_HEROKU_SLUG_COMMIT}${process.env.VUE_APP_HEROKU_RELEASE_VERSION}`;
-      }
+import TopNavbar from "./../layout/dashboard/TopNavbar";
+import ContentFooter from "./../layout/dashboard/ContentFooter.vue";
+
+export default {
+  components: {
+    TopNavbar,
+    ContentFooter
+  },
+  data() {
+    return {
+      year: new Date().getFullYear(),
+      version: false,
+      versionText: ""
+    };
+  },
+  mounted() {
+    if (
+      typeof process.env.VUE_APP_HEROKU_SLUG_COMMIT !== "undefined" &&
+      typeof process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined"
+    ) {
+      this.version = true;
+      this.versionText = ` | ${process.env.VUE_APP_HEROKU_SLUG_COMMIT}${process.env.VUE_APP_HEROKU_RELEASE_VERSION}`;
     }
-  };
+  }
+};
 </script>
