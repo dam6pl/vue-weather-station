@@ -1,142 +1,167 @@
 <template>
   <div>
-    <div class="row" v-if="!loading">
-      <div class="col-12 my-2">
-        <h1>Stacja: {{ this.currentStation.name }} ({{ this.currentStation.latitude }}, {{ this.currentStation.longitude }})</h1>
-      </div>
-      <div class="col-12">
-        <card type="chart">
-          <template slot="header">
-            <div class="row">
-              <div class="col-sm-6 text-left">
-                <h5 class="card-category">Dane kolekcjonowane z dwóch czujników: DHT22 oraz MPL115A2</h5>
-                <h2 class="card-title">Temperatura</h2>
-              </div>
-              <div class="col-sm-6">
-                <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                  <label
-                    v-for="(option, index) in chartsCategories"
-                    :key="option"
-                    class="btn btn-sm btn-primary btn-simple"
-                    :class="{active: temperatureChart.activeIndex === index}"
-                    :id="index"
-                  >
-                    <input
-                      type="radio"
-                      @click="initCharts(index)"
-                      name="options"
-                      autocomplete="off"
-                      :checked="temperatureChart.activeIndex === index"
-                    />
-                    {{option}}
-                  </label>
+    <fade-transition :duration="1000" mode="out-in">
+      <div class="row" v-if="!loading && !notFound">
+        <div class="col-12 my-2">
+          <h1>Stacja: {{ this.currentStation.name }} ({{ this.currentStation.latitude }}, {{ this.currentStation.longitude }})</h1>
+        </div>
+        <div class="col-12">
+          <card type="chart">
+            <template slot="header">
+              <div class="row">
+                <div class="col-sm-6 text-left">
+                  <h5
+                    class="card-category"
+                  >Dane kolekcjonowane z dwóch czujników: DHT22 oraz MPL115A2</h5>
+                  <h2 class="card-title">Temperatura</h2>
+                </div>
+                <div class="col-sm-6">
+                  <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                    <label
+                      v-for="(option, index) in chartsCategories"
+                      :key="option"
+                      class="btn btn-sm btn-primary btn-simple"
+                      :class="{active: temperatureChart.activeIndex === index}"
+                      :id="index"
+                    >
+                      <input
+                        type="radio"
+                        @click="initCharts(index)"
+                        name="options"
+                        autocomplete="off"
+                        :checked="temperatureChart.activeIndex === index"
+                      />
+                      {{option}}
+                    </label>
+                  </div>
                 </div>
               </div>
-            </div>
-          </template>
-          <div class="chart-area" v-if="!chartLoading">
-            <line-chart
-              style="height: 100%"
-              ref="bigChart"
-              chart-id="big-line-chart"
-              :chart-data="temperatureChart.chartData"
-              :gradient-colors="temperatureChart.gradientColors"
-              :gradient-stops="temperatureChart.gradientStops"
-              :extra-options="temperatureChart.extraOptions"
-            ></line-chart>
-          </div>
-          <div class="loader" v-if="chartLoading">
-            <div class="lds-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </card>
+            </template>
+            <fade-transition :duration="1000" mode="out-in">
+              <div class="chart-area" v-if="!chartLoading">
+                <line-chart
+                  style="height: 100%"
+                  ref="bigChart"
+                  chart-id="big-line-chart"
+                  :chart-data="temperatureChart.chartData"
+                  :gradient-colors="temperatureChart.gradientColors"
+                  :gradient-stops="temperatureChart.gradientStops"
+                  :extra-options="temperatureChart.extraOptions"
+                ></line-chart>
+              </div>
+              <div class="loader" v-if="chartLoading">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </fade-transition>
+          </card>
+        </div>
       </div>
-    </div>
+    </fade-transition>
 
-    <div class="row" v-if="!loading">
-      <div class="col-lg-4">
-        <card type="chart">
-          <template slot="header">
-            <h5 class="card-category">Dane kolekcjonowane z czujnika: DHT22</h5>
-            <h3 class="card-title">Wilgotność potwietrza</h3>
-          </template>
-          <div class="chart-area" v-if="!chartLoading">
-            <line-chart
-              style="height: 100%"
-              chart-id="purple-line-chart"
-              :chart-data="humidityChart.chartData"
-              :gradient-colors="humidityChart.gradientColors"
-              :gradient-stops="humidityChart.gradientStops"
-              :extra-options="humidityChart.extraOptions"
-            ></line-chart>
-          </div>
-          <div class="loader" v-if="chartLoading">
-            <div class="lds-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </card>
+    <fade-transition :duration="1000" mode="out-in">
+      <div class="row" v-if="!loading && !notFound">
+        <div class="col-lg-4">
+          <card type="chart">
+            <template slot="header">
+              <h5 class="card-category">Dane kolekcjonowane z czujnika: DHT22</h5>
+              <h3 class="card-title">Wilgotność potwietrza</h3>
+            </template>
+            <fade-transition :duration="1000" mode="out-in">
+              <div class="chart-area" v-if="!chartLoading">
+                <line-chart
+                  style="height: 100%"
+                  chart-id="purple-line-chart"
+                  :chart-data="humidityChart.chartData"
+                  :gradient-colors="humidityChart.gradientColors"
+                  :gradient-stops="humidityChart.gradientStops"
+                  :extra-options="humidityChart.extraOptions"
+                ></line-chart>
+              </div>
+              <div class="loader" v-if="chartLoading">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </fade-transition>
+          </card>
+        </div>
+        <div class="col-lg-4">
+          <card type="chart">
+            <template slot="header">
+              <h5 class="card-category">Dane kolekcjonowane z czujnika: MPL115A2</h5>
+              <h3 class="card-title">Ciśnienie atmosferyczne</h3>
+            </template>
+            <fade-transition :duration="1000" mode="out-in">
+              <div class="chart-area" v-if="!chartLoading">
+                <bar-chart
+                  style="height: 100%"
+                  chart-id="purple-line-chart"
+                  :chart-data="pressureChart.chartData"
+                  :gradient-colors="pressureChart.gradientColors"
+                  :gradient-stops="pressureChart.gradientStops"
+                  :extra-options="pressureChart.extraOptions"
+                ></bar-chart>
+              </div>
+              <div class="loader" v-if="chartLoading">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </fade-transition>
+          </card>
+        </div>
+        <div class="col-lg-4">
+          <card type="chart">
+            <template slot="header">
+              <h5 class="card-category">Dane kolekcjonowane z czujnika: GL5528</h5>
+              <h3 class="card-title">Jasność</h3>
+            </template>
+            <fade-transition :duration="1000" mode="out-in">
+              <div class="chart-area" v-if="!chartLoading">
+                <line-chart
+                  style="height: 100%"
+                  chart-id="green-line-chart"
+                  :chart-data="illuminanceChart.chartData"
+                  :gradient-colors="illuminanceChart.gradientColors"
+                  :gradient-stops="illuminanceChart.gradientStops"
+                  :extra-options="illuminanceChart.extraOptions"
+                ></line-chart>
+              </div>
+              <div class="loader" v-if="chartLoading">
+                <div class="lds-ellipsis">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            </fade-transition>
+          </card>
+        </div>
       </div>
-      <div class="col-lg-4">
-        <card type="chart">
-          <template slot="header">
-            <h5 class="card-category">Dane kolekcjonowane z czujnika: MPL115A2</h5>
-            <h3 class="card-title">Ciśnienie atmosferyczne</h3>
-          </template>
-          <div class="chart-area" v-if="!chartLoading">
-            <bar-chart
-              style="height: 100%"
-              chart-id="purple-line-chart"
-              :chart-data="pressureChart.chartData"
-              :gradient-colors="pressureChart.gradientColors"
-              :gradient-stops="pressureChart.gradientStops"
-              :extra-options="pressureChart.extraOptions"
-            ></bar-chart>
+    </fade-transition>
+
+    <fade-transition :duration="1000" mode="out-in">
+      <div class="content full" v-if="notFound">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-6 text-center">
+            <h1 class="title text-danger">404 Nie znaleziono</h1>
+            <h2 class="title">Oops! Strona której szukasz wydaje się nie istnieć.</h2>
           </div>
-          <div class="loader" v-if="chartLoading">
-            <div class="lds-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </card>
+        </div>
       </div>
-      <div class="col-lg-4">
-        <card type="chart">
-          <template slot="header">
-            <h5 class="card-category">Dane kolekcjonowane z czujnika: GL5528</h5>
-            <h3 class="card-title">Jasność</h3>
-          </template>
-          <div class="chart-area" v-if="!chartLoading">
-            <line-chart
-              style="height: 100%"
-              chart-id="green-line-chart"
-              :chart-data="illuminanceChart.chartData"
-              :gradient-colors="illuminanceChart.gradientColors"
-              :gradient-stops="illuminanceChart.gradientStops"
-              :extra-options="illuminanceChart.extraOptions"
-            ></line-chart>
-          </div>
-          <div class="loader" v-if="chartLoading">
-            <div class="lds-ellipsis">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-        </card>
-      </div>
-    </div>
+    </fade-transition>
   </div>
 </template>
 <script>
@@ -157,6 +182,7 @@ export default {
     return {
       currentStation: null,
       loading: true,
+      notFound: false,
       chartLoading: true,
       temperatureChart: {
         activeIndex: 0,
@@ -382,7 +408,11 @@ export default {
         }
       })
       .catch(error => {
-        this.$router.push("/404");
+        this.notFound = true;
+        this.$notify({
+          type: "danger",
+          message: "Błąd strony: " + error.message
+        });
       });
 
     this.initCharts(1);
