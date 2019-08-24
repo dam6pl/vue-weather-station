@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     updateGradients(chartData) {
-      if(!chartData) return;
+      if (!chartData) return;
       const ctx = this.ctx || document.getElementById(this.chartId).getContext('2d');
       const gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
@@ -47,12 +47,10 @@ export default {
   mounted() {
     this.$watch('chartData', (newVal, oldVal) => {
       this.updateGradients(this.chartData);
-      if (!oldVal) {
-        this.renderChart(
-          this.chartData,
-          this.extraOptions
-        );
-      }
+      this.renderChart(
+        this.chartData,
+        this.extraOptions
+      );
     }, { immediate: true });
   }
 };
