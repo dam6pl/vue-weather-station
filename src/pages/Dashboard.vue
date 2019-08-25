@@ -42,7 +42,7 @@ export default {
       .get(process.env.VUE_APP_API_URL + "v1/stations")
       .then(response => {
         if (response.data.success) {
-          this.stations = response.data.data.reverse();
+          this.stations = response.data.data;
           this.loader = !this.loader;
         }
       })

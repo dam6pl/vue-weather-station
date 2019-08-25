@@ -785,8 +785,11 @@ body {
   list-style-type: none;
   padding: 0;
 
+  li {
+    padding: 10px 0;
+  }
+
   a {
-    padding: 15px 0;
     font-size: 16px;
     color: #e14eca;
   }
