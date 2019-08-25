@@ -20,38 +20,37 @@ export let purpleChartOptions = {
     position: "nearest",
     callbacks: {
       label: ((tooltipItems, data) => {
-        return tooltipItems.yLabel + data.units
+        return tooltipItems.yLabel + data.units;
       })
     }
   },
   scales: {
     yAxes: [{
-      barPercentage: 1.6,
+
       gridLines: {
         drawBorder: false,
-        color: 'rgba(29,140,248,0.0)',
+        color: 'rgba(29,140,248,0.1)',
         zeroLineColor: "transparent",
       },
       ticks: {
         padding: 20,
-        fontColor: "#9a9a9a"
+        fontColor: "#9e9e9e"
       }
     }],
-
     xAxes: [{
-      barPercentage: 1.6,
+
       gridLines: {
         drawBorder: false,
-        color: 'rgba(225,78,202,0.1)',
+        color: 'rgba(29,140,248,0.1)',
         zeroLineColor: "transparent",
       },
       ticks: {
         padding: 20,
-        fontColor: "#9a9a9a"
+        fontColor: "#9e9e9e"
       }
     }]
   }
-}
+};
 
 export let barChartOptions = {
   ...basicOptions,
@@ -64,11 +63,7 @@ export let barChartOptions = {
     mode: "nearest",
     intersect: 0,
     position: "nearest",
-    callbacks: {
-      label: ((tooltipItems, data) => {
-        return tooltipItems.yLabel + data.units
-      })
-    }
+
   },
   scales: {
     yAxes: [{
@@ -96,5 +91,4 @@ export let barChartOptions = {
       }
     }]
   }
-
-}
+};

@@ -97,14 +97,14 @@
               <h3 class="card-title">Ciśnienie atmosferyczne</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
-              <bar-chart
+              <line-chart
                 style="height: 250px"
                 chart-id="purple-line-chart"
                 :chart-data="pressureChart.chartData"
                 :gradient-colors="pressureChart.gradientColors"
                 :gradient-stops="pressureChart.gradientStops"
                 :extra-options="pressureChart.extraOptions"
-              ></bar-chart>
+              ></line-chart>
             </div>
 
             <div class="loader" v-if="chartLoading">
@@ -294,7 +294,7 @@ export default {
           labels: [],
           units: " hPa"
         },
-        extraOptions: chartConfigs.barChartOptions,
+        extraOptions: chartConfigs.purpleChartOptions,
         gradientColors: [
           "rgba(3, 169, 244, 0.1)",
           "rgba(3, 169, 244, 0)",
@@ -320,6 +320,8 @@ export default {
       this.chartLoading = true;
 
       let url = "",
+        from = "",
+        date = new Date(),
         temperature = [],
         humidity = [],
         illuminance = [],
@@ -329,63 +331,79 @@ export default {
       switch (index) {
         case 0:
           url =
-            process.env.VUE_APP_API_URL +
-            "v1/stations/" +
-            this.$router.currentRoute.params.id +
-            "/measurements?interval=hourly";
+            "?interval=hourly&from=" +
+            this.$moment(date - 24 * 60 * 60 * 1000).format(
+              "YYYY-MM-DD HH:mm:ss"
+            ) +
+            "&per_page=24";
           break;
         case 1:
           url =
-            process.env.VUE_APP_API_URL +
-            "v1/stations/" +
-            this.$router.currentRoute.params.id +
-            "/measurements?interval=daily";
+            "?interval=daily&from=" +
+            this.$moment(date.setMonth(date.getMonth() - 1)).format(
+              "YYYY-MM-DD 00:00:00"
+            ) +
+            "&per_page=31";
           break;
         case 2:
           url =
-            process.env.VUE_APP_API_URL +
-            "v1/stations/" +
-            this.$router.currentRoute.params.id +
-            "/measurements?interval=monthly";
+            "?interval=monthly&from=" +
+            this.$moment(date.setFullYear(date.getFullYear() - 1)).format(
+              "YYYY-MM-DD 00:00:00"
+            ) +
+            "&per_page=10";
           break;
       }
 
-      axios.get(url).then(response => {
-        if (response.data.success) {
-          response.data.data.forEach(el => {
-            temperature.push(el.temperature);
-            humidity.push(el.humidity);
-            illuminance.push(el.illuminance);
-            pressure.push(el.pressure);
-            switch (index) {
-              case 0:
-                labels.push(
-                  el.created_at
-                    .replace(/\d{4}-\d{2}-\d{2}\s/, " ")
-                    .replace(/59/g, "00")
-                );
-                break;
-              case 1:
-                labels.push(el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, " "));
-                break;
-              case 2:
-                labels.push(
-                  el.created_at.replace(/-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/, " ")
-                );
-                break;
-            }
-          });
+      axios
+        .get(
+          process.env.VUE_APP_API_URL +
+            "v1/stations/" +
+            this.$router.currentRoute.params.id +
+            "/measurements" +
+            url
+        )
+        .then(response => {
+          if (response.data.success) {
+            response.data.data.forEach(el => {
+              temperature.push(el.temperature);
+              humidity.push(el.humidity);
+              illuminance.push(el.illuminance);
+              pressure.push(el.pressure);
+              switch (index) {
+                case 0:
+                  labels.push(
+                    el.created_at
+                      .replace(/\d{4}-\d{2}-\d{2}\s/, " ")
+                      .replace(/59/g, "00")
+                  );
+                  break;
+                case 1:
+                  labels.push(
+                    el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, " ")
+                  );
+                  break;
+                case 2:
+                  labels.push(
+                    el.created_at.replace(
+                      /-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
+                      " "
+                    )
+                  );
+                  break;
+              }
+            });
 
-          this.temperatureChart.chartData.datasets[0].data = temperature.reverse();
-          this.humidityChart.chartData.datasets[0].data = humidity.reverse();
-          this.illuminanceChart.chartData.datasets[0].data = illuminance.reverse();
-          this.pressureChart.chartData.datasets[0].data = pressure.reverse();
+            this.temperatureChart.chartData.datasets[0].data = temperature.reverse();
+            this.humidityChart.chartData.datasets[0].data = humidity.reverse();
+            this.illuminanceChart.chartData.datasets[0].data = illuminance.reverse();
+            this.pressureChart.chartData.datasets[0].data = pressure.reverse();
 
-          this.temperatureChart.chartData.labels = this.humidityChart.chartData.labels = this.illuminanceChart.chartData.labels = this.pressureChart.chartData.labels = labels.reverse();
+            this.temperatureChart.chartData.labels = this.humidityChart.chartData.labels = this.illuminanceChart.chartData.labels = this.pressureChart.chartData.labels = labels.reverse();
 
-          this.chartLoading = false;
-        }
-      });
+            this.chartLoading = false;
+          }
+        });
     }
   },
   mounted() {
