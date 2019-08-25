@@ -514,9 +514,13 @@ body {
 }
 
 .loader {
-  height: 220px;
+  height: 250px;
   display: flex;
   align-items: center;
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
 }
 
 

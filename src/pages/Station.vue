@@ -37,27 +37,25 @@
                 </div>
               </div>
             </template>
-            <fade-transition :duration="1000" mode="out-in">
-              <div class="chart-area" v-if="!chartLoading">
-                <line-chart
-                  style="height: 100%"
-                  ref="bigChart"
-                  chart-id="big-line-chart"
-                  :chart-data="temperatureChart.chartData"
-                  :gradient-colors="temperatureChart.gradientColors"
-                  :gradient-stops="temperatureChart.gradientStops"
-                  :extra-options="temperatureChart.extraOptions"
-                ></line-chart>
+            <div class="chart-area" v-if="!chartLoading">
+              <line-chart
+                style="height: 250px"
+                ref="bigChart"
+                chart-id="big-line-chart"
+                :chart-data="temperatureChart.chartData"
+                :gradient-colors="temperatureChart.gradientColors"
+                :gradient-stops="temperatureChart.gradientStops"
+                :extra-options="temperatureChart.extraOptions"
+              ></line-chart>
+            </div>
+            <div class="loader" v-if="chartLoading">
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-              <div class="loader" v-if="chartLoading">
-                <div class="lds-ellipsis">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            </fade-transition>
+            </div>
           </card>
         </div>
       </div>
@@ -71,26 +69,25 @@
               <h5 class="card-category">Dane kolekcjonowane z czujnika: DHT22</h5>
               <h3 class="card-title">Wilgotność potwietrza</h3>
             </template>
-            <fade-transition :duration="1000" mode="out-in">
-              <div class="chart-area" v-if="!chartLoading">
-                <line-chart
-                  style="height: 100%"
-                  chart-id="purple-line-chart"
-                  :chart-data="humidityChart.chartData"
-                  :gradient-colors="humidityChart.gradientColors"
-                  :gradient-stops="humidityChart.gradientStops"
-                  :extra-options="humidityChart.extraOptions"
-                ></line-chart>
+            <div class="chart-area" v-if="!chartLoading">
+              <line-chart
+                style="height: 250px"
+                chart-id="purple-line-chart"
+                :chart-data="humidityChart.chartData"
+                :gradient-colors="humidityChart.gradientColors"
+                :gradient-stops="humidityChart.gradientStops"
+                :extra-options="humidityChart.extraOptions"
+              ></line-chart>
+            </div>
+
+            <div class="loader" v-if="chartLoading">
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-              <div class="loader" v-if="chartLoading">
-                <div class="lds-ellipsis">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            </fade-transition>
+            </div>
           </card>
         </div>
         <div class="col-lg-4">
@@ -99,26 +96,25 @@
               <h5 class="card-category">Dane kolekcjonowane z czujnika: MPL115A2</h5>
               <h3 class="card-title">Ciśnienie atmosferyczne</h3>
             </template>
-            <fade-transition :duration="1000" mode="out-in">
-              <div class="chart-area" v-if="!chartLoading">
-                <bar-chart
-                  style="height: 100%"
-                  chart-id="purple-line-chart"
-                  :chart-data="pressureChart.chartData"
-                  :gradient-colors="pressureChart.gradientColors"
-                  :gradient-stops="pressureChart.gradientStops"
-                  :extra-options="pressureChart.extraOptions"
-                ></bar-chart>
+            <div class="chart-area" v-if="!chartLoading">
+              <bar-chart
+                style="height: 250px"
+                chart-id="purple-line-chart"
+                :chart-data="pressureChart.chartData"
+                :gradient-colors="pressureChart.gradientColors"
+                :gradient-stops="pressureChart.gradientStops"
+                :extra-options="pressureChart.extraOptions"
+              ></bar-chart>
+            </div>
+
+            <div class="loader" v-if="chartLoading">
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-              <div class="loader" v-if="chartLoading">
-                <div class="lds-ellipsis">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            </fade-transition>
+            </div>
           </card>
         </div>
         <div class="col-lg-4">
@@ -127,26 +123,24 @@
               <h5 class="card-category">Dane kolekcjonowane z czujnika: GL5528</h5>
               <h3 class="card-title">Jasność</h3>
             </template>
-            <fade-transition :duration="1000" mode="out-in">
-              <div class="chart-area" v-if="!chartLoading">
-                <line-chart
-                  style="height: 100%"
-                  chart-id="green-line-chart"
-                  :chart-data="illuminanceChart.chartData"
-                  :gradient-colors="illuminanceChart.gradientColors"
-                  :gradient-stops="illuminanceChart.gradientStops"
-                  :extra-options="illuminanceChart.extraOptions"
-                ></line-chart>
+            <div class="chart-area" v-if="!chartLoading">
+              <line-chart
+                style="height: 250px"
+                chart-id="green-line-chart"
+                :chart-data="illuminanceChart.chartData"
+                :gradient-colors="illuminanceChart.gradientColors"
+                :gradient-stops="illuminanceChart.gradientStops"
+                :extra-options="illuminanceChart.extraOptions"
+              ></line-chart>
+            </div>
+            <div class="loader" v-if="chartLoading">
+              <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
               </div>
-              <div class="loader" v-if="chartLoading">
-                <div class="lds-ellipsis">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-            </fade-transition>
+            </div>
           </card>
         </div>
       </div>
