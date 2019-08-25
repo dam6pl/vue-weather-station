@@ -2,40 +2,45 @@
   <div>
     <fade-transition :duration="1000" mode="out-in">
       <div class="row" v-if="!loading && !notFound">
-        <div class="col-12 my-2">
-          <h1>Stacja: {{ this.currentStation.name }} ({{ this.currentStation.latitude }}, {{ this.currentStation.longitude }})</h1>
+        <div class="col-12 col-md-8 mb-4">
+          <h2 class="mb-0">
+            Stacja: {{ this.currentStation.name }}
+            <span
+              style="font-size: small"
+            >({{ this.currentStation.latitude }}, {{ this.currentStation.longitude }})</span>
+          </h2>
         </div>
+        <div class="col-12 col-md-4 mb-4">
+          <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+            <label
+              v-for="(option, index) in chartsCategories"
+              :key="option"
+              class="btn btn-sm btn-primary btn-simple"
+              :class="{active: temperatureChart.activeIndex === index}"
+              :id="index"
+              style="flex: 1"
+            >
+              <input
+                type="radio"
+                @click="initCharts(index)"
+                name="options"
+                autocomplete="off"
+                :checked="temperatureChart.activeIndex === index"
+              />
+              {{option}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </fade-transition>
+
+    <fade-transition :duration="1000" mode="out-in">
+      <div class="row" v-if="!loading && !notFound">
         <div class="col-12">
           <card type="chart">
             <template slot="header">
-              <div class="row">
-                <div class="col-sm-6 text-left">
-                  <h5
-                    class="card-category"
-                  >Dane kolekcjonowane z dwóch czujników: DHT22 oraz MPL115A2</h5>
-                  <h2 class="card-title">Temperatura</h2>
-                </div>
-                <div class="col-sm-6">
-                  <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
-                    <label
-                      v-for="(option, index) in chartsCategories"
-                      :key="option"
-                      class="btn btn-sm btn-primary btn-simple"
-                      :class="{active: temperatureChart.activeIndex === index}"
-                      :id="index"
-                    >
-                      <input
-                        type="radio"
-                        @click="initCharts(index)"
-                        name="options"
-                        autocomplete="off"
-                        :checked="temperatureChart.activeIndex === index"
-                      />
-                      {{option}}
-                    </label>
-                  </div>
-                </div>
-              </div>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22, MPL115A2</h5>
+              <h2 class="card-title">Temperatura</h2>
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
@@ -66,7 +71,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujnika: DHT22</h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22</h5>
               <h3 class="card-title">Wilgotność potwietrza</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -93,7 +98,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujnika: MPL115A2</h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: MPL115A2</h5>
               <h3 class="card-title">Ciśnienie atmosferyczne</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -120,7 +125,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujnika: GL5528</h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: GL5528</h5>
               <h3 class="card-title">Jasność</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
