@@ -79,8 +79,6 @@ export let barChartOptions = {
         zeroLineColor: "transparent",
       },
       ticks: {
-        suggestedMin: 60,
-        suggestedMax: 120,
         padding: 20,
         fontColor: "#9e9e9e"
       }

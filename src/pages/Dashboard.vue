@@ -7,13 +7,13 @@
           <li v-for="station in stations" :key="station.id">
             <a
               :href="`/station/${station.id}`"
-            >{{ station.name }} ({{ station.latitude }} {{ station.longitude }})</a>
+            >{{ station.name }} ({{ station.latitude }}, {{ station.longitude }})</a>
           </li>
         </ul>
       </div>
     </fade-transition>
     <div class="col-12 col-md-6" v-if="loader">
-      <div class="lds-ellipsis" v-if="loader">
+      <div class="lds-ellipsis">
         <div></div>
         <div></div>
         <div></div>
@@ -42,7 +42,7 @@ export default {
       .get(process.env.VUE_APP_API_URL + "v1/stations")
       .then(response => {
         if (response.data.success) {
-          this.stations = response.data.data;
+          this.stations = response.data.data.reverse();
           this.loader = !this.loader;
         }
       })
