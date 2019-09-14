@@ -379,20 +379,20 @@ export default {
                 case 0:
                   labels.push(
                     el.created_at
-                      .replace(/\d{4}-\d{2}-\d{2}\s/, " ")
+                      .replace(/\d{4}-\d{2}-\d{2}\s/, "")
                       .replace(/59/g, "00")
                   );
                   break;
                 case 1:
                   labels.push(
-                    el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, " ")
+                    el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, "")
                   );
                   break;
                 case 2:
                   labels.push(
                     el.created_at.replace(
-                      /-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}/,
-                      " "
+                      /\s\d{2}:\d{2}:\d{2}/,
+                      ""
                     )
                   );
                   break;
