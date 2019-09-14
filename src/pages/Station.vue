@@ -390,10 +390,7 @@ export default {
                   break;
                 case 2:
                   labels.push(
-                    el.created_at.replace(
-                      /\s\d{2}:\d{2}:\d{2}/,
-                      ""
-                    )
+                    el.created_at.replace(/-\d{2}\s\d{2}:\d{2}:\d{2}/, "")
                   );
                   break;
               }
