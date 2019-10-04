@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 
-process.env.VUE_APP_HEROKU_SLUG_COMMIT = process.env.HEROKU_SLUG_COMMIT;
+process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT = process.env.HEROKU_RELEASE_CREATED_AT;
 process.env.VUE_APP_HEROKU_RELEASE_VERSION = process.env.HEROKU_RELEASE_VERSION;
 
 module.exports = {

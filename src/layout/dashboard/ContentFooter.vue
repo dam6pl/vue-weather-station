@@ -21,13 +21,17 @@ export default {
   },
   mounted() {
     if (
-      typeof process.env.VUE_APP_HEROKU_SLUG_COMMIT !== "undefined" &&
+      typeof process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT !== "undefined" &&
       typeof process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined" &&
-      process.env.VUE_APP_HEROKU_SLUG_COMMIT !== "undefined" &&
+      process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT !== "undefined" &&
       process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined"
     ) {
+      let created_at = VUE_APP_HEROKU_RELEASE_CREATED_AT.replace("-", "")
+        .replace("T", ".")
+        .replace(":", "")
+        .replace("Z", "");
       this.version = true;
-      this.versionText = ` | ${process.env.VUE_APP_HEROKU_SLUG_COMMIT}${process.env.VUE_APP_HEROKU_RELEASE_VERSION}`;
+      this.versionText = ` | ${process.env.VUE_APP_HEROKU_RELEASE_VERSION}.${created_at}`;
     }
   }
 };
