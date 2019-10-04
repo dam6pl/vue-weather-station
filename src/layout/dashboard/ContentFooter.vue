@@ -26,7 +26,7 @@ export default {
       process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT !== "undefined" &&
       process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined"
     ) {
-      let created_at = VUE_APP_HEROKU_RELEASE_CREATED_AT.replace("-", "")
+      let created_at = process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT.replace("-", "")
         .replace("T", ".")
         .replace(":", "")
         .replace("Z", "");
