@@ -44,7 +44,7 @@
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
-                style="height: 250px"
+                style="height: 100%"
                 ref="bigChart"
                 chart-id="big-line-chart"
                 :chart-data="temperatureChart.chartData"
@@ -67,7 +67,7 @@
     </fade-transition>
 
     <fade-transition :duration="1000" mode="out-in">
-      <div class="row" v-if="!loading && !notFound">
+      <div class="row no-mb-lg" v-if="!loading && !notFound">
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
@@ -76,7 +76,7 @@
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
-                style="height: 250px"
+                style="height: 100%"
                 chart-id="purple-line-chart"
                 :chart-data="humidityChart.chartData"
                 :gradient-colors="humidityChart.gradientColors"
@@ -103,7 +103,7 @@
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
-                style="height: 250px"
+                style="height: 100%"
                 chart-id="purple-line-chart"
                 :chart-data="pressureChart.chartData"
                 :gradient-colors="pressureChart.gradientColors"
@@ -130,7 +130,7 @@
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
-                style="height: 250px"
+                style="height: 100%"
                 chart-id="green-line-chart"
                 :chart-data="illuminanceChart.chartData"
                 :gradient-colors="illuminanceChart.gradientColors"
@@ -384,9 +384,7 @@ export default {
                   );
                   break;
                 case 1:
-                  labels.push(
-                    el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, "")
-                  );
+                  labels.push(el.created_at.replace(/\s\d{2}:\d{2}:\d{2}/, ""));
                   break;
                 case 2:
                   labels.push(

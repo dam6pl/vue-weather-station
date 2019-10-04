@@ -16,9 +16,7 @@ body {
 .sidebar-wrapper ul li div.collapse ul li div.collapse ul li a,
 .sidebar-wrapper ul li div.collapse ul li div.collapsing ul li a,
 .sidebar-wrapper ul li div.collapsing ul li div.collapse ul li a {
-
   margin-left: 25px;
-
 }
 
 .sidebar,
@@ -98,19 +96,16 @@ body {
       }
     }
 
-
     [data-toggle="collapse"] ~ div > ul > li:hover > a {
-      .sidebar-mini-icon, .sidebar-normal {
+      .sidebar-mini-icon,
+      .sidebar-normal {
         color: $white;
       }
-
     }
 
     .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon {
       opacity: 0;
     }
-
-
   }
 
   .navbar-minimize {
@@ -174,12 +169,12 @@ body {
 
       &:first-child > a {
         margin: 0 15px;
-
       }
 
       &:hover:not(.active) > a,
       &:focus:not(.active) > a {
-        p, i {
+        p,
+        i {
           color: $white;
         }
       }
@@ -192,7 +187,8 @@ body {
       &.active > a:not([data-toggle="collapse"]) {
         background: transparent;
 
-        i, p {
+        i,
+        p {
           color: white;
         }
 
@@ -218,10 +214,10 @@ body {
         }
 
         & + div .nav .active a {
-
           box-shadow: none;
 
-          .sidebar-mini-icon, .sidebar-normal {
+          .sidebar-mini-icon,
+          .sidebar-normal {
             color: $white;
             font-weight: $font-weight-normal;
           }
@@ -320,14 +316,13 @@ body {
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       right: 15px;
       height: 1px;
       width: calc(100% - 30px);
       background: $opacity-5;
-
     }
 
     p {
@@ -386,7 +381,7 @@ body {
     position: relative;
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: 0;
       right: 15px;
@@ -442,9 +437,7 @@ body {
   }
 
   transition: 0.5s cubic-bezier(0.685, 0.0473, 0.346, 1);
-
 }
-
 
 .visible-on-sidebar-regular {
   display: inline-block !important;
@@ -467,7 +460,6 @@ body {
   }
 }
 
-
 .main-panel {
   position: relative;
   float: right;
@@ -476,7 +468,7 @@ body {
   border-top: 2px solid $primary;
   background: linear-gradient($background-black, $background-states-black);
 
-  @include transitions (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+  @include transitions(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
 
   &[data="blue"] {
     border-top: 2px solid $info;
@@ -496,7 +488,7 @@ body {
 
   .content {
     padding: 18px 30px 0;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - 75px);
 
     &.full {
       height: 1px;
@@ -507,22 +499,28 @@ body {
     margin-bottom: 0;
   }
 
-
   .header {
     margin-bottom: 50px;
+  }
+
+  @media screen and (min-width: 992px) {
+    .no-mb-lg {
+      .card {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
 .loader {
   height: 250px;
+  min-height: 29vh;
   display: flex;
   align-items: center;
-  position: absolute;
   top: 15px;
   left: 0;
   right: 0;
 }
-
 
 .perfect-scrollbar-on {
   .sidebar,
@@ -532,15 +530,14 @@ body {
   }
 }
 
-
 @media (min-width: 991px) {
   .sidebar,
   .main-panel,
   .sidebar-wrapper {
     -webkit-transition-property: top, bottom, width;
     transition-property: top, bottom, width;
-    -webkit-transition-duration: .2s, .2s, .35s;
-    transition-duration: .2s, .2s, .35s;
+    -webkit-transition-duration: 0.2s, 0.2s, 0.35s;
+    transition-duration: 0.2s, 0.2s, 0.35s;
     -webkit-transition-timing-function: linear, linear, ease;
     transition-timing-function: linear, linear, ease;
     -webkit-overflow-scrolling: touch;
@@ -549,7 +546,6 @@ body {
   nav:not(.nav-404) {
     display: none !important;
   }
-
 
   .sidebar-mini {
     .visible-on-sidebar-regular {
@@ -568,7 +564,6 @@ body {
       }
     }
 
-
     .sidebar {
       display: block;
       z-index: 1030;
@@ -583,7 +578,14 @@ body {
 
       .sidebar-wrapper {
         > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-        .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+        .user
+          .info
+          [data-toggle="collapse"]
+          ~ div
+          > ul
+          > li
+          > a
+          .sidebar-normal,
         .user .info > a > span,
         > .nav li > a p {
           @include transform-translate-x(-25px);
@@ -604,7 +606,6 @@ body {
           opacity: 1;
           @include transform-translate-x(0);
         }
-
       }
 
       .navbar-minimize {
@@ -616,7 +617,14 @@ body {
 
         > .nav li > a p,
         > .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
-        .user .info [data-toggle="collapse"] ~ div > ul > li > a .sidebar-normal,
+        .user
+          .info
+          [data-toggle="collapse"]
+          ~ div
+          > ul
+          > li
+          > a
+          .sidebar-normal,
         .user .info > a > span {
           @include transform-translate-x(0px);
           opacity: 1;
@@ -626,8 +634,6 @@ body {
       .nav [data-toggle="collapse"] ~ div > ul > li > a .sidebar-mini-icon {
         opacity: 0;
       }
-
-
     }
 
     .main-panel {
@@ -651,15 +657,21 @@ body {
       }
     }
   }
-
 }
 
 .panel-header {
   height: 260px;
   padding-top: 80px;
   padding-bottom: 45px;
-  background: #141E30; /* fallback for old browsers */
-  background: -webkit-gradient(linear, left top, right top, from(#0c2646), color-stop(60%, #204065), to(#2a5788));
+  background: #141e30; /* fallback for old browsers */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#0c2646),
+    color-stop(60%, #204065),
+    to(#2a5788)
+  );
   background: linear-gradient(to right, #0c2646 0%, #204065 60%, #2a5788 100%);
   position: relative;
   overflow: hidden;
@@ -687,7 +699,7 @@ body {
 }
 
 .panel-header-lg {
-  height: 380px
+  height: 380px;
 }
 
 @media screen and (max-width: 991px) {
@@ -710,7 +722,7 @@ body {
   }
 
   .wrapper {
-    @include transition (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+    @include transition(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
   }
 
   .main-panel {
@@ -724,7 +736,6 @@ body {
     }
 
     .sidebar {
-
       @include transition(0.5s cubic-bezier(0.685, 0.0473, 0.346, 1));
       @include transform-translate-x(0px);
 
@@ -739,7 +750,6 @@ body {
     }
 
     .menu-on-right {
-
       .main-panel {
         @include transform-translate-x(-260px);
       }
@@ -776,9 +786,8 @@ body {
     z-index: 9999;
     overflow-x: hidden;
     background-color: transparent;
-    @include transition (0.50s, cubic-bezier(0.685, 0.0473, 0.346, 1));
+    @include transition(0.5s, cubic-bezier(0.685, 0.0473, 0.346, 1));
   }
-
 }
 
 .stations-list {
@@ -796,12 +805,10 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-
   .main-panel .content {
     padding-left: 15px;
     padding-right: 15px;
   }
-
 }
 
 .page-404 {
