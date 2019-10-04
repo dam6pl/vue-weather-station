@@ -26,10 +26,10 @@ export default {
       process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT !== "undefined" &&
       process.env.VUE_APP_HEROKU_RELEASE_VERSION !== "undefined"
     ) {
-      let created_at = process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT.replace("-", "")
-        .replace("T", ".")
-        .replace(":", "")
-        .replace("Z", "");
+      let created_at = process.env.VUE_APP_HEROKU_RELEASE_CREATED_AT.replace(/-/g, "")
+        .replace(/T/g, ".")
+        .replace(/:/g, "")
+        .replace(/Z/g, "");
       this.version = true;
       this.versionText = ` | ${process.env.VUE_APP_HEROKU_RELEASE_VERSION}.${created_at}`;
     }
