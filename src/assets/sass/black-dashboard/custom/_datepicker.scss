@@ -1,0 +1,74 @@
+.btn-datepicker {
+  overflow: inherit;
+
+  &:hover {
+    transform: none !important;
+  }
+
+  .form-control.reportrange-text {
+    background: transparent;
+    border: none;
+    color: #e14eca;
+    padding: 0;
+    font-size: 0.875rem;
+    height: auto;
+  }
+
+  .daterangepicker {
+    background: #28293d;
+    border: 1px solid;
+    top: 25px !important;
+
+    &:before {
+      display: none !important;
+    }
+    &:after {
+      border-bottom-color: #e14eca;
+    }
+    .ranges li {
+      color: #de4dc8;
+
+      &.active {
+        background: #de4dc8;
+      }
+    }
+
+    table {
+      th {
+        color: #fff;
+        background: #28293d;
+      }
+
+      td {
+        background: #28293d;
+      }
+    }
+
+    .calendar-table {
+      background: #28293d;
+      border: none;
+
+      .next,
+      .prev {
+        span {
+          border-color: #e14eca;
+        }
+      }
+    }
+
+    .drp-calendar.left,
+    .drp-buttons {
+      border-color: #e14eca !important;
+    }
+
+    td.active,
+    td.active:hover {
+      background: #e14eca;
+    }
+
+    td.in-range {
+      background: rgba(225, 78, 202, 0.5) !important;
+      color: #fff;
+    }
+  }
+}

@@ -2,21 +2,22 @@
   <div>
     <fade-transition :duration="1000" mode="out-in">
       <div class="row" v-if="!loading && !notFound">
-        <div class="col-12 col-md-8 mb-4">
+        <div class="col-12 col-lg-6 mb-4">
           <h2 class="mb-0">
             Stacja: {{ this.currentStation.name }}
-            <span
-              style="font-size: small"
-            >({{ this.currentStation.latitude }}, {{ this.currentStation.longitude }})</span>
+            <span style="font-size: small"
+              >({{ this.currentStation.latitude }},
+              {{ this.currentStation.longitude }})</span
+            >
           </h2>
         </div>
-        <div class="col-12 col-md-4 mb-4">
+        <div class="col-12 col-lg-6 mb-4">
           <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
             <label
               v-for="(option, index) in chartsCategories"
               :key="option"
               class="btn btn-sm btn-primary btn-simple"
-              :class="{active: temperatureChart.activeIndex === index}"
+              :class="{ active: temperatureChart.activeIndex === index }"
               :id="index"
               style="flex: 1"
             >
@@ -27,8 +28,27 @@
                 autocomplete="off"
                 :checked="temperatureChart.activeIndex === index"
               />
-              {{option}}
+              {{ option }}
             </label>
+            <div
+              class="btn btn-sm btn-primary btn-simple btn-datepicker"
+              style="flex: 1"
+            >
+              <date-range-picker
+                ref="picker"
+                v-model="dateRange"
+                :opens="windowWidth > 768 ? 'left' : 'center'"
+                @update="initCharts(null)"
+                :ranges="dateRanges"
+                :max-date="date"
+              >
+                <div slot="input" slot-scope="picker">
+                  {{ $moment(picker.startDate).format("DD.MM.YYYY") }}
+                  -
+                  {{ $moment(picker.endDate).format("DD.MM.YYYY") }}
+                </div>
+              </date-range-picker>
+            </div>
           </div>
         </div>
       </div>
@@ -39,7 +59,9 @@
         <div class="col-12">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22, MPL115A2</h5>
+              <h5 class="card-category">
+                Dane kolekcjonowane z czujników: DHT22, MPL115A2
+              </h5>
               <h2 class="card-title">Temperatura</h2>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -71,7 +93,9 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22</h5>
+              <h5 class="card-category">
+                Dane kolekcjonowane z czujników: DHT22
+              </h5>
               <h3 class="card-title">Wilgotność potwietrza</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -98,7 +122,9 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujników: MPL115A2</h5>
+              <h5 class="card-category">
+                Dane kolekcjonowane z czujników: MPL115A2
+              </h5>
               <h3 class="card-title">Ciśnienie atmosferyczne</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -125,7 +151,9 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">Dane kolekcjonowane z czujników: GL5528</h5>
+              <h5 class="card-category">
+                Dane kolekcjonowane z czujników: GL5528
+              </h5>
               <h3 class="card-title">Jasność</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -156,7 +184,9 @@
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-md-6 text-center">
             <h1 class="title text-danger">404 Nie znaleziono</h1>
-            <h2 class="title">Oops! Strona której szukasz wydaje się nie istnieć.</h2>
+            <h2 class="title">
+              Oops! Strona której szukasz wydaje się nie istnieć.
+            </h2>
           </div>
         </div>
       </div>
@@ -170,12 +200,15 @@ import * as chartConfigs from "@/components/Charts/config";
 import config from "@/config";
 import axios from "axios";
 import { FadeTransition } from "vue2-transitions";
+import DateRangePicker from "vue2-daterange-picker";
+import "vue2-daterange-picker/dist/vue2-daterange-picker.css";
 
 export default {
   components: {
     LineChart,
     BarChart,
-    FadeTransition
+    FadeTransition,
+    DateRangePicker
   },
   data() {
     return {
@@ -183,6 +216,43 @@ export default {
       loading: true,
       notFound: false,
       chartLoading: true,
+      date: new Date(),
+      dateRange: {
+        startDate: this.$moment().startOf("month"),
+        endDate: this.$moment().endOf("month")
+      },
+      dateRanges: {
+        Dziś: [this.$moment(), this.$moment()],
+        Wczoraj: [
+          this.$moment().subtract(1, "days"),
+          this.$moment().subtract(1, "days")
+        ],
+        "Ten miesiąc": [
+          this.$moment().startOf("month"),
+          this.$moment().endOf("month")
+        ],
+        "Ten rok": [
+          this.$moment().startOf("year"),
+          this.$moment().endOf("year")
+        ],
+        "Ostatni tydzień": [
+          this.$moment()
+            .subtract(1, "week")
+            .startOf("week"),
+          this.$moment()
+            .subtract(1, "week")
+            .endOf("week")
+        ],
+        "Ostatni miesiąc": [
+          this.$moment()
+            .subtract(1, "month")
+            .startOf("month"),
+          this.$moment()
+            .subtract(1, "month")
+            .endOf("month")
+        ]
+      },
+      windowWidth: 0,
       temperatureChart: {
         activeIndex: 0,
         chartData: {
@@ -312,16 +382,21 @@ export default {
   },
   computed: {
     chartsCategories() {
-      return ["Dzień", "Miesiąc", "Rok"];
+      return ["Godzinowo", "Dziennie", "Miesięcznie"];
     }
   },
   methods: {
     initCharts(index) {
-      if (this.temperatureChart.activeIndex === index) {
-        return;
+      if (index !== null) {
+        if (this.temperatureChart.activeIndex === index) {
+          return;
+        }
+
+        this.temperatureChart.activeIndex = index;
+      } else {
+        index = this.temperatureChart.activeIndex;
       }
 
-      this.temperatureChart.activeIndex = index;
       this.chartLoading = true;
 
       let url = "",
@@ -337,26 +412,32 @@ export default {
         case 0:
           url =
             "?interval=hourly&from=" +
-            this.$moment(date - 24 * 60 * 60 * 1000).format(
+            this.$moment(this.dateRange.startDate).format(
               "YYYY-MM-DD HH:mm:ss"
             ) +
-            "&per_page=24";
+            "&to=" +
+            this.$moment(this.dateRange.endDate).format("YYYY-MM-DD HH:mm:ss") +
+            "&per_page=999999";
           break;
         case 1:
           url =
             "?interval=daily&from=" +
-            this.$moment(date.setMonth(date.getMonth() - 1)).format(
-              "YYYY-MM-DD 00:00:00"
+            this.$moment(this.dateRange.startDate).format(
+              "YYYY-MM-DD HH:mm:ss"
             ) +
-            "&per_page=31";
+            "&to=" +
+            this.$moment(this.dateRange.endDate).format("YYYY-MM-DD HH:mm:ss") +
+            "&per_page=999999";
           break;
         case 2:
           url =
             "?interval=monthly&from=" +
-            this.$moment(date.setFullYear(date.getFullYear() - 1)).format(
-              "YYYY-MM-DD 00:00:00"
+            this.$moment(this.dateRange.startDate).format(
+              "YYYY-MM-DD HH:mm:ss"
             ) +
-            "&per_page=10";
+            "&to=" +
+            this.$moment(this.dateRange.endDate).format("YYYY-MM-DD HH:mm:ss") +
+            "&per_page=999999";
           break;
       }
 
@@ -407,6 +488,7 @@ export default {
     }
   },
   mounted() {
+    this.$moment().locale("pl");
     axios
       .get(
         process.env.VUE_APP_API_URL +
@@ -428,8 +510,12 @@ export default {
       });
 
     this.initCharts(1);
+
+    this.windowWidth = window.innerWidth;
+    window.addEventListener("resize", () => {
+      this.windowWidth = window.innerWidth;
+    });
   }
 };
 </script>
-<style>
-</style>
+<style></style>
