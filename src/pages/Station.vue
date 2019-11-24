@@ -31,7 +31,7 @@
               {{ option }}
             </label>
             <div
-              class="btn btn-sm btn-primary btn-simple btn-datepicker"
+              class="btn btn-sm btn-success btn-datepicker"
               style="flex: 1"
             >
               <date-range-picker

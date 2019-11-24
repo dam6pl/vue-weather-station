@@ -155,16 +155,32 @@
   .btn-group {
     flex-direction: column;
 
+    & > label:first-child {
+      border-radius: 0.2857rem 0.2857rem 0 0 !important;
+    }
+
+    & > div:last-child {
+      border-radius: 0 0 0.2857rem 0.2857rem !important;
+    }
+
+    & > label {
+      border-bottom: 0px;
+      border-right: 1px;
+    }
+
     & > * {
-      margin: 0;
-
-      &:first-of-type {
-        border-radius: 0.2857rem 0.2857rem 0 0;
-      }
-
-      &:last-of-type {
-        border-radius: 0 0 0.2857rem 0.2857rem;
-      }
+      margin: 0 !important;
     }
   }
+}
+
+.btn-group {
+  & > label {
+    border-right: 0px;
+  }
+}
+
+.btn:not(:disabled):not(.disabled):active,
+.btn:not(:disabled):not(.disabled).active {
+  box-shadow: none !important;
 }
