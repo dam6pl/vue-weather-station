@@ -237,11 +237,11 @@ export default {
         ],
         "Ostatni tydzień": [
           this.$moment()
-            .subtract(1, "week")
-            .startOf("week"),
+            .subtract(1, "isoWeek")
+            .startOf("isoWeek"),
           this.$moment()
-            .subtract(1, "week")
-            .endOf("week")
+            .subtract(1, "isoWeek")
+            .endOf("isoWeek")
         ],
         "Ostatni miesiąc": [
           this.$moment()
