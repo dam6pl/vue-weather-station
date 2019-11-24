@@ -164,8 +164,8 @@
     }
 
     & > label {
-      border-bottom: 0px;
-      border-right: 1px;
+      border-bottom-width: 0px;
+      border-right-width: 1px;
     }
 
     & > * {
@@ -176,7 +176,7 @@
 
 .btn-group {
   & > label {
-    border-right: 0px;
+    border-right-width: 0px;
   }
 }
 
