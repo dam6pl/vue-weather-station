@@ -5,10 +5,10 @@
         <div class="col-12 col-lg-6 mb-4">
           <h2 class="mb-0">
             Stacja: {{ this.currentStation.name }}
-            <span style="font-size: small"
-              >({{ this.currentStation.latitude }},
-              {{ this.currentStation.longitude }})</span
-            >
+            <span style="font-size: small">
+              ({{ this.currentStation.latitude }},
+              {{ this.currentStation.longitude }})
+            </span>
           </h2>
         </div>
         <div class="col-12 col-lg-6 mb-4">
@@ -30,10 +30,7 @@
               />
               {{ option }}
             </label>
-            <div
-              class="btn btn-sm btn-success btn-datepicker"
-              style="flex: 1"
-            >
+            <div class="btn btn-sm btn-success btn-datepicker" style="flex: 1">
               <date-range-picker
                 ref="picker"
                 v-model="dateRange"
@@ -59,9 +56,7 @@
         <div class="col-12">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">
-                Dane kolekcjonowane z czujników: DHT22, MPL115A2
-              </h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22, MPL115A2</h5>
               <h2 class="card-title">Temperatura</h2>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -93,9 +88,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">
-                Dane kolekcjonowane z czujników: DHT22
-              </h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22</h5>
               <h3 class="card-title">Wilgotność potwietrza</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -122,9 +115,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">
-                Dane kolekcjonowane z czujników: MPL115A2
-              </h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: MPL115A2</h5>
               <h3 class="card-title">Ciśnienie atmosferyczne</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -151,9 +142,7 @@
         <div class="col-lg-4">
           <card type="chart">
             <template slot="header">
-              <h5 class="card-category">
-                Dane kolekcjonowane z czujników: GL5528
-              </h5>
+              <h5 class="card-category">Dane kolekcjonowane z czujników: GL5528</h5>
               <h3 class="card-title">Jasność</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
@@ -184,9 +173,7 @@
         <div class="row justify-content-center align-items-center h-100">
           <div class="col-12 col-md-6 text-center">
             <h1 class="title text-danger">404 Nie znaleziono</h1>
-            <h2 class="title">
-              Oops! Strona której szukasz wydaje się nie istnieć.
-            </h2>
+            <h2 class="title">Oops! Strona której szukasz wydaje się nie istnieć.</h2>
           </div>
         </div>
       </div>
@@ -219,7 +206,7 @@ export default {
       date: new Date(),
       dateRange: {
         startDate: this.$moment().startOf("month"),
-        endDate: this.$moment().endOf("month")
+        endDate: this.$moment()
       },
       dateRanges: {
         Dziś: [this.$moment(), this.$moment()],
@@ -237,11 +224,13 @@ export default {
         ],
         "Ostatni tydzień": [
           this.$moment()
-            .subtract(1, "isoWeek")
-            .startOf("isoWeek"),
+            .subtract(1, "week")
+            .startOf("week")
+            .add(1, "day"),
           this.$moment()
-            .subtract(1, "isoWeek")
-            .endOf("isoWeek")
+            .subtract(1, "week")
+            .endOf("week")
+            .add(1, "day")
         ],
         "Ostatni miesiąc": [
           this.$moment()
