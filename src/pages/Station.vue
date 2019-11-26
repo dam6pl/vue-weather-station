@@ -38,6 +38,7 @@
                 @update="initCharts(null)"
                 :ranges="dateRanges"
                 :max-date="date"
+                :locale-data="localeData"
               >
                 <div slot="input" slot-scope="picker">
                   {{ $moment(picker.startDate).format("DD.MM.YYYY") }}
@@ -240,6 +241,10 @@ export default {
             .subtract(1, "month")
             .endOf("month")
         ]
+      },
+      localeData: {
+        applyLabel: "Szukaj",
+        cancelLabel: "Anuluj"
       },
       windowWidth: 0,
       temperatureChart: {
