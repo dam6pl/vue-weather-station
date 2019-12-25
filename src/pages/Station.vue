@@ -90,7 +90,7 @@
           <card type="chart">
             <template slot="header">
               <h5 class="card-category">Dane kolekcjonowane z czujników: DHT22</h5>
-              <h3 class="card-title">Wilgotność potwietrza</h3>
+              <h3 class="card-title">Wilgotność</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
@@ -144,7 +144,7 @@
           <card type="chart">
             <template slot="header">
               <h5 class="card-category">Dane kolekcjonowane z czujników: GL5528</h5>
-              <h3 class="card-title">Jasność</h3>
+              <h3 class="card-title">Natężenie światła</h3>
             </template>
             <div class="chart-area" v-if="!chartLoading">
               <line-chart
